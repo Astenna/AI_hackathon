@@ -1,0 +1,28 @@
+version: 2
+jobs:
+  build_environment:
+    machine: true
+    working_directory: ~/AI_hackathon
+    steps:
+      - checkout
+      - run:
+        name: Build tensorflow docker image
+        command: echo "test"
+
+workflows:
+  version: 2
+  build_on_commit:
+    jobs:
+      - build_environment
+
+  daily_workflow:
+    jobs:
+      - build_environment
+
+    triggers:
+      - schedule:
+          cron: "00 11 * * *"
+          filters:
+            branches:
+              only:
+                - master
