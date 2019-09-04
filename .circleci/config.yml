@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run:
           name: Build tensorflow docker image
-          command: echo "test"
+          command: docker build -f runtime/Dockerfile .
 
 workflows:
   version: 2
