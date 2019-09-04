@@ -33,7 +33,7 @@ def merge_data_files(twitter_file, stock_file, output_file):
 
 if __name__ == "__main__":
     merge_data_files(
-        twitter_file="../datasets/training/support/training_twitter.json",
-        stock_file="../datasets/training/support/stock_data_04-09-2019.csv",
-        output_file="../datasets/training/prepared/training_data.csv",
+        twitter_file="datasets/training/support/training_twitter.json",
+        stock_file="datasets/training/support/stock_data_04-09-2019.csv",
+        output_file="datasets/training/prepared/training_data.csv",
     )
