@@ -19,6 +19,43 @@ if __name__ == "__main__":
     # Website
     # Create Jinja2 templates environment
     database = OrderedDict()
+    database["predictions"] = [
+   {
+       "date": "09.08.2018",
+       "prediction": {
+           "increase": "0.6",
+           "decrease": "0.4"
+       }
+   },
+   {
+       "date": "10.08.2018",
+       "prediction": {
+           "increase": "0.9",
+           "decrease": "0.1"
+       }
+   },
+   {
+       "date": "11.08.2018",
+       "prediction": {
+           "increase": "0.6",
+           "decrease": "0.4"
+       }
+   },
+   {
+       "date": "12.08.2018",
+       "prediction": {
+           "increase": "0.2",
+           "decrease": "0.8"
+       }
+   },
+   {
+       "date": "13.08.2018",
+       "prediction": {
+           "increase": "0.3",
+           "decrease": "0.7"
+       }
+   }
+]
 
     env = Environment(
         loader=PackageLoader("templates-module", "templates"),
