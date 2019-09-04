@@ -6,6 +6,9 @@ import json
 import os
 import datetime
 from textblob import TextBlob
+import numpy as np
+import csv
+import collections
 
 
 consumer_key = 'XWoLg0xPqVv89ngEBdCa7I6lj'
@@ -20,14 +23,9 @@ results_dir = "./"
 
 def download_tweets(query, start_date="2019-09-03", end_date="2019-09-04", tweet_count=5):
     # tweets = {'date': [], 'text': [], 'screen_name': [], 'followers_count': []}
-
+    tweets = []
     for tweet in tweepy.Cursor(api.search,q=query,lang="en",since=start_date,until=end_date,tweet_mode='extended').items():
-        print("dupa")
         tweets.append(tweet._json)
-        # tweets['date'].append(tweet.created_at)
-        # tweets['text'].append(tweet.full_text)
-        # tweets['screen_name'].append(tweet.user.screen_name)
-        # tweets['followers_count'].append(count_followers(tweets, index))
     with open(os.path.join(results_dir, file_name), "w") as tweets_file:
        json.dump(tweets, tweets_file, indent=4)
 
@@ -41,7 +39,7 @@ def count_valuable_data(tweets):
     for date in dates:
         cnt[date] += 1
 
-    output = dict()
+    output = collections.OrderedDict()
     for tweet in tweets:
         tweet.get("created_at")
         if tweet["created_at"] in output.keys():
@@ -70,9 +68,25 @@ def count_valuable_data(tweets):
                 output[tweet["created_at"]]["neg_fol"] += tweet["user"]["followers_count"]
                 
     print(output)
-    # print(pos_sent)
-    # print(neg_sent)
-    
+    daily_tweets_list = [day.get("daily_tweets") for day in output.values()]
+    print(daily_tweets_list)
+    max_daily = max(daily_tweets_list)
+
+    csv_list = [] # data, p1, p2, p3, p4
+    for key, value in output.items():
+        data = []
+        data.append(key)
+        data.append(value['daily_tweets']/max_daily)
+        total_sent = value['pos_sent'] + value['neg_sent']
+        data.append(np.round(value['pos_sent']/total_sent, 5))
+        data.append(np.round(value['neg_sent']/total_sent, 5))
+        data.append((value['pos_foll'] - value['neg_fol'])/(value['pos_foll'] + value['neg_fol']))
+        csv_list.append(data)
+    with open('data.csv', 'w', newline='') as myfile:
+        wr = csv.writer(myfile)
+        wr.writerow(["date", "p1", "p2", "p3", "p4"])
+        wr.writerows(csv_list)
+    print(len(tweets))
 def execute_sentimentation(tweets):
     for tweet in tweets:
         tweet["sentiment"] = TextBlob(tweet["full_text"]).polarity
@@ -83,13 +97,11 @@ def parse_timestamp(tweets):
 
         
 def main():
+    download_tweets("#Intel", "2019-08-03","2019-09-04")
     with open("tweets.json", "r") as tweets_file:
         tweets = json.load(tweets_file)
     
-    # print(tweets)
-
     execute_sentimentation(tweets)
-    print(len(tweets))
     parse_timestamp(tweets)
     count_valuable_data(tweets)
 
