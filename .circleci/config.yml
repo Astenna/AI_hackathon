@@ -55,6 +55,11 @@ jobs:
           name: Show files twitter summary
           command: ls datasets/inference/support && cat datasets/inference/prepared/inference_data.csv
 
+      - run: 
+          name: Show files twitter summary
+          command: cat predicions/prediction.json
+
+
 
   generate-website:
     working_directory: ~/AI_hackathon
