@@ -10,8 +10,8 @@ import csv
 import collections
 
 input_file_name = "twitter_converted.json"
-output_file_name = "tweets_summary.json"
-results_dir = "./datasets/training/support"
+output_file_name = "tweets_to_merge.json"
+results_dir = "./datasets/inference/support"
 
 
 def count_valuable_data(tweets):

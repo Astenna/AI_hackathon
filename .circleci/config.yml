@@ -36,6 +36,10 @@ jobs:
           command: python3 src/inf_stock.py
 
       - run: 
+          name: Merge tweet and stock data
+          command: python3 src/inf_merge_tweet_stock.py
+
+      - run: 
           name: Show files twitter summary
           command: ls datasets/inference/support
 
