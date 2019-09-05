@@ -1,3 +1,4 @@
+# Author: Katarzyna Mitrus
 version: 2
 jobs:
   build_environment:
@@ -17,6 +18,10 @@ jobs:
       - run:
           name: Install requirements
           command: sudo pip install --upgrade -r requirements_pred.txt --ignore-installed
+      - run:
+          name: Download daily tweets
+          command: python3 src/daily_update.py --querysearch '#Intel' --output 'datasets/inference/support/today.csv'
+  
 
   generate-website:
     working_directory: ~/AI_hackathon

@@ -109,7 +109,7 @@ def count_valuable_data(tweets):
     #     wr.writerow(["date", "p1", "p2", "p3", "p4"])
     #     wr.writerows(csv_list)
 
-    with open(os.path.join(results_dir, output_file_name), 'w') as json_file:
+    with open(os.path.join(results_dir, output_file_name), "w") as json_file:
         json.dump(twitter_dict, json_file, indent=4)
 
 

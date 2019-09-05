@@ -31,7 +31,7 @@ def merge_data_files(twitter_file, stock_file, output_file):
         writer = csv.writer(csv_file)
         writer.writerows(all_data)
 
-    with open("datasets/training/support/max_tweet.json", 'w') as json_file:
+    with open("datasets/training/support/max_tweet.json", "w") as json_file:
         json.dump(max_dict, json_file, indent=4)
 
 
