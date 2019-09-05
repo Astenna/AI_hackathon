@@ -3,16 +3,16 @@
 
 import json
 import os
+import sys
 import datetime
 from textblob import TextBlob
 import numpy as np
 import csv
 import collections
+import argparse
 
-input_file_name = "twitter_converted.json"
-file_name = "tweets.json"
-results_dir = "./datasets/training/support"
-
+input_file_name = "./datasets/training/support/twitter_converted.json"
+output_file_name = "./datasets/training/support/tweets_summary.json"
 
 def count_valuable_data(tweets):
 
@@ -109,7 +109,7 @@ def count_valuable_data(tweets):
     #     wr.writerow(["date", "p1", "p2", "p3", "p4"])
     #     wr.writerows(csv_list)
 
-    with open(os.path.join(results_dir, file_name), 'w') as json_file:
+    with open(output_file_name, 'w') as json_file:
         json.dump(twitter_dict, json_file, indent=4)
 
 
@@ -123,15 +123,39 @@ def parse_timestamp(tweets):
         tweet["date"] = tweet["date"].split(" ")[0]
         # tweet["date"] = str(datetime.datetime.strptime(tweet["date"], '%a %b %d %X +0000 %Y').date())
 
+def parse_command_line_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--input",
+        dest="input",
+        help="Input data from the specified json file",
+    )
+    parser.add_argument(
+        "--output",
+        dest="output",
+        help="Ouput data to the specified json file",
+    )
+    args = parser.parse_args()
+    
+    if args.output != None:
+        output_file_name = args.output
+
+    if args.input != None:
+        # if os.path.exists(os.path.joinargs.input):
+        #     raise OSError("Input file not found!")
+        input_file_name = args.input
 
 def main():
-    with open(os.path.join(results_dir, input_file_name), "r") as tweets_file:
+    
+    parse_command_line_args()   
+
+    with open(input_file_name, "r") as tweets_file:
         tweets = json.load(tweets_file)
 
     parse_timestamp(tweets)
     execute_sentimentation(tweets)
     count_valuable_data(tweets)
 
+if __name__ == "__main__": 
 
-if __name__ == "__main__":
     main()
