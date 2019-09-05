@@ -58,8 +58,6 @@ def extendDataFrameByResult(dataFrame):
         index += 1
     resultArr.append(0)
 
-    print(len(closeArr), len(resultArr))
-
     dataFrame["Result"] = resultArr
 
     return dataFrame
@@ -92,9 +90,9 @@ def dropDataFrameLastRow(dataFrame):
     return dataFrame.drop(dataFrame.tail(1).index)
 
 
-def saveDataFrameToCsv(dataFrame, fileName):
+def saveDataFrameToCsv(dataFrame, fileName, indexArg, headerArg):
     dataCsvFile = open(fileName, "w")
-    dataCsvFile.write(dataFrame.to_csv(index=False))
+    dataCsvFile.write(dataFrame.to_csv(index=indexArg, header=headerArg))
     dataCsvFile.close()
 
 def readCsvfFile(fileName):
@@ -104,17 +102,18 @@ def readCsvfFile(fileName):
 def main():
     stockDataFrame = readCsvfFile("../datasets/support/plain_05-09-2019.csv")
 
-    stockDataFrame = stockDataFrame.reset_index()
+    # stockDataFrame = stockDataFrame.reset_index()
 
     stockDataFrame = extendDataFrameByP5(stockDataFrame)
     stockDataFrame = extendDataFrameByP6(stockDataFrame)
     stockDataFrame = extendDataFrameByP7(stockDataFrame)
-    stockDataFrame = extendDataFrameByResult02(stockDataFrame)
+    stockDataFrame = extendDataFrameByResult(stockDataFrame)
+    # stockDataFrame = extendDataFrameByResult02(stockDataFrame)
 
     stockDataFrame = dropDataFrameColumns(stockDataFrame)
     stockDataFrame = dropDataFrameLastRow(stockDataFrame)
 
-    saveDataFrameToCsv(stockDataFrame, "../datasets/support/stock_result_0-2.csv")
+    saveDataFrameToCsv(stockDataFrame, "../datasets/support/stock_result_0-1.csv", indexArg=False, headerArg=False)
 
 if __name__ == "__main__":
     main()
