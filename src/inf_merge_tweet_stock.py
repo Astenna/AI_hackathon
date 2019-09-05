@@ -29,6 +29,7 @@ def merge_data_files(twitter_file, stock_file, output_file):
     # Save merged dataset to the file
     with open(output_file, "a") as csv_file:
         writer = csv.writer(csv_file)
+        writer.writerow("\n")
         writer.writerows(all_data)
 
     with open("datasets/inference/support/max_tweet.json", "w") as json_file:
