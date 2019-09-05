@@ -58,13 +58,15 @@ workflows:
   version: 2
   build_on_commit:
     jobs:
-      - build_environment
+      # - build_environment
+      - stock_prediction
       - generate-website
 
   daily_workflow:
     jobs:
-      - build_environment
+      # - build_environment
       - generate-website
+      - stock_prediction
 
     triggers:
       - schedule:
