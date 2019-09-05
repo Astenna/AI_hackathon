@@ -43,7 +43,7 @@ jobs:
 
       - run:
           name: Deploy results
-          working_directory: ~/ngraph-ci-test
+          working_directory: ~/AI_hackathon
           command: |
             git config --global user.email "blue@wolves.com"
             git config --global user.name "blue-wolves"
