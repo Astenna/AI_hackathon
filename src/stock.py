@@ -84,6 +84,30 @@ def extendDataFrameByResult2(dataFrame):
     return dataFrame
 
 
+def extendDataFrameByResult4(dataFrame):
+    closeArr = dataFrame["Close"].values
+    resultArr = []
+
+    index = 0
+    while index < len(closeArr) - 1:
+        if closeArr[index + 1] - closeArr[index] > 0.7:
+            resultArr.append(4)
+        elif closeArr[index + 1] - closeArr[index] > 0.2:
+            resultArr.append(3)
+        elif closeArr[index + 1] - closeArr[index] > -0.2:
+            resultArr.append(2)
+        elif closeArr[index + 1] - closeArr[index] > -0.7:
+            resultArr.append(1)
+        else:
+            resultArr.append(0)
+        index += 1
+    resultArr.append(0)
+
+    dataFrame["Result"] = resultArr
+
+    return dataFrame
+
+
 def dropDataFrameColumns(dataFrame):
     return dataFrame.drop(columns=['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume'])
 
@@ -137,7 +161,7 @@ def main():
         "--result",
         dest="resultMode",
         default="1",
-        help="Result mode 0-x (possible: 1, 2)",
+        help="Result mode 0-x (possible: 1, 2, 4)"
     )
 
     args = parser.parse_args()
@@ -157,11 +181,14 @@ def main():
 
     if args.resultMode == 1:
         stockDataFrame = extendDataFrameByResult1(stockDataFrame)
-    else:
+    elif args.resultMode == 2:
         stockDataFrame = extendDataFrameByResult2(stockDataFrame)
+    else:
+        stockDataFrame = extendDataFrameByResult4(stockDataFrame)
 
     stockDataFrame = dropDataFrameColumns(stockDataFrame)
-    stockDataFrame = dropDataFrameLastRow(stockDataFrame)
+    if(args.startDate != args.endDate):
+        stockDataFrame = dropDataFrameLastRow(stockDataFrame)
 
     saveDataFrameToCsv(stockDataFrame, "../datasets/support/" +
                        args.outputFilename, indexArg=False, headerArg=False)
