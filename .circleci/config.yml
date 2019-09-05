@@ -10,7 +10,7 @@ jobs:
           name: Build tensorflow docker image
           command: docker build -f runtime/Dockerfile .
 
-  stock_prediction:  
+  stock_prediction:
     docker:
       - image: circleci/python:3.6.4
     steps:
@@ -25,49 +25,49 @@ jobs:
 
       - run:
           name: Download daily tweets
-          command: python3 src/inf_daily_update.py --querysearch '#Intel' --output 'datasets/inference/support/raw_tweets.csv' && cat datasets/inference/support/raw_tweets.csv 
+          command: python3 src/inf_daily_update.py --querysearch '#Intel' --output 'datasets/inference/support/raw_tweets.csv' && cat datasets/inference/support/raw_tweets.csv
 
-      - run: 
+      - run:
           name: Show raw twitter data
           command: cat datasets/inference/support/raw_tweets.csv
 
       - run:
           name: Parse raw_tweets to json
-          command: python3 src/inf_parse_twitter_csv.py 
+          command: python3 src/inf_parse_twitter_csv.py
 
-      - run: 
+      - run:
           name: Show json twitter converted data
           command: cat datasets/inference/support/twitter_converted.json
 
-      - run: 
+      - run:
           name: Twitter json per date summary
           command: python3 src/inf_twapi.py
-      
-      - run: 
+
+      - run:
           name: Show twitter data summary
           command: cat datasets/inference/support/tweets_to_merge.json
 
-      - run: 
+      - run:
           name: Get stock data
-          command: python3 src/inf_stock.py --start-date '2019-09-03' --end-date '2019-09-04'
+          command: python3 src/inf_stock.py --start-date '2019-09-05' --end-date '2019-09-05'
 
-      - run: 
+      - run:
           name: Show stock data
           command: cat datasets/inference/support/stock.csv
 
-      - run: 
+      - run:
           name: Merge tweet and stock data
           command: python3 src/inf_merge_tweet_stock.py
 
-      - run: 
+      - run:
           name: Show inference data
           command: cat datasets/inference/prepared/inference_data.csv
 
-      - run: 
+      - run:
           name: Load model and predict stock price
           command: python3 src/nn.py
 
-      - run: 
+      - run:
           name: Show prediction
           command: cat predictions/prediction.json
 

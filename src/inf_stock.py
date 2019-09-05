@@ -2,7 +2,7 @@ import yfinance as yf
 import pandas as pd
 import json
 import numpy as np
-from datetime import date
+from datetime import date, timedelta, datetime
 from argparse import ArgumentParser
 
 
@@ -134,14 +134,14 @@ def main():
     parser.add_argument(
         "--start-date",
         dest="startDate",
-        default=date.today().strftime("%Y-%m-%d"),
+        default=str((datetime.today() - timedelta(days=1)).strftime("%Y-%m-%d")),
         help="Start date in YYYY-MM-DD format",
     )
 
     parser.add_argument(
         "--end-date",
         dest="endDate",
-        default=date.today().strftime("%Y-%m-%d"),
+        default=str(date.today().strftime("%Y-%m-%d")),
         help="End date in YYYY-MM-DD format",
     )
 
