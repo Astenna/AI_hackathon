@@ -36,7 +36,7 @@ jobs:
           command: python3 src/inf_parse_twitter_csv.py 
 
       - run: 
-          name: Show json twitter data
+          name: Show json twitter converted data
           command: cat datasets/inference/support/twitter_converted.json
 
       - run: 
@@ -49,7 +49,7 @@ jobs:
 
       - run: 
           name: Get stock data
-          command: python3 src/inf_stock.py --start-date '2019-09-04' --end-date '2019-09-05'
+          command: python3 src/inf_stock.py --start-date '2019-09-03' --end-date '2019-09-04'
 
       - run: 
           name: Show stock data
