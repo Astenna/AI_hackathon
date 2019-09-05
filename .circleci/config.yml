@@ -9,8 +9,17 @@ jobs:
           name: Build tensorflow docker image
           command: docker build -f runtime/Dockerfile .
 
+  stock_prediction:  
+    docker:
+      - image: circleci/python:3.6.4
+    steps:
+      - checkout
+      - run:
+          name: Install requirements
+          command: sudo pip install --upgrade -r requirements_pred.txt --ignore-installed
+
   generate-website:
-    working_directory: ~/ngraph-ci-test
+    working_directory: ~/AI_hackathon
     docker:
       - image: circleci/python:3.6.4
     steps:
