@@ -34,7 +34,7 @@ def main(argv):
     if args.output != None:
         outputFileName = args.output
 
-    outputFile = codecs.open(outputFileName, "w+", "utf-8")
+    outputFile = codecs.open(outputFileName, "w", "utf-8")
 
     outputFile.write(
         "username;date;retweets;favorites;text;geo;mentions;hashtags;id;permalink"
