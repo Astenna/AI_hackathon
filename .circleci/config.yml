@@ -28,6 +28,14 @@ jobs:
           command: python3 src/inf_parse_twitter_csv.py 
 
       - run: 
+          name: Twitter json per date summary
+          command: python3 src/inf_twapi.py
+
+      - run: 
+          name: Get stock data
+          command: python3 src/inf_stock.py
+
+      - run: 
           name: Show files twitter summary
           command: ls datasets/inference/support
 
