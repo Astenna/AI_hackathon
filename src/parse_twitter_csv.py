@@ -2,7 +2,7 @@ import csv
 import json
 
 
-def read_twitter_csv(csv_path="datasets/training/support/output_got.csv"):
+def read_twitter_csv(csv_path="datasets/training/support/output_got_bigger.csv"):
     with open(csv_path) as csv_file:
         csvReader = csv.DictReader(
             csv_file,
