@@ -3,6 +3,7 @@ import pandas as pd
 import json
 import numpy as np
 from datetime import date
+from argparse import ArgumentParser
 
 
 def fetchDataFromPeriod(start_arg, end_arg):
@@ -48,7 +49,7 @@ def extendDataFrameByP7(dataFrame):
     )
 
 
-def extendDataFrameByResult(dataFrame):
+def extendDataFrameByResult1(dataFrame):
     closeArr = dataFrame["Close"].values
     resultArr = []
 
@@ -63,7 +64,7 @@ def extendDataFrameByResult(dataFrame):
     return dataFrame
 
 
-def extendDataFrameByResult02(dataFrame):
+def extendDataFrameByResult2(dataFrame):
     closeArr = dataFrame["Close"].values
     resultArr = []
 
@@ -86,6 +87,7 @@ def extendDataFrameByResult02(dataFrame):
 def dropDataFrameColumns(dataFrame):
     return dataFrame.drop(columns=['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume'])
 
+
 def dropDataFrameLastRow(dataFrame):
     return dataFrame.drop(dataFrame.tail(1).index)
 
@@ -95,25 +97,75 @@ def saveDataFrameToCsv(dataFrame, fileName, indexArg, headerArg):
     dataCsvFile.write(dataFrame.to_csv(index=indexArg, header=headerArg))
     dataCsvFile.close()
 
+
 def readCsvfFile(fileName):
     return pd.read_csv(fileName, sep=",")
 
 
 def main():
-    stockDataFrame = readCsvfFile("../datasets/support/plain_05-09-2019.csv")
+    parser = ArgumentParser()
+
+    parser.add_argument(
+        "--start-date",
+        dest="startDate",
+        default=date.today().strftime("%Y-%m-%d"),
+        help="Start date in YYYY-MM-DD format",
+    )
+
+    parser.add_argument(
+        "--end-date",
+        dest="endDate",
+        default=date.today().strftime("%Y-%m-%d"),
+        help="End date in YYYY-MM-DD format",
+    )
+
+    parser.add_argument(
+        "--output",
+        dest="outputFilename",
+        default="stock.csv",
+        help="Output file name in datasets/support directory (store output data)",
+    )
+
+    parser.add_argument(
+        "--plain",
+        dest="plainFilename",
+        default="plain.csv",
+        help="File name in datasets/support directory (store plain stock data)",
+    )
+
+    parser.add_argument(
+        "--result",
+        dest="resultMode",
+        default="1",
+        help="Result mode 0-x (possible: 1, 2)",
+    )
+
+    args = parser.parse_args()
+
+    stockDataFrame = fetchDataFromPeriod(args.startDate, args.endDate)
+    # stockDataFrame = fetchDataFromPredefinedPeriod("5d")
+
+    saveDataFrameToCsv(stockDataFrame, "../datasets/support/" +
+                       args.plainFilename, indexArg=True, headerArg=True)
+    stockDataFrame = readCsvfFile("../datasets/support/" + args.plainFilename)
 
     # stockDataFrame = stockDataFrame.reset_index()
 
     stockDataFrame = extendDataFrameByP5(stockDataFrame)
     stockDataFrame = extendDataFrameByP6(stockDataFrame)
     stockDataFrame = extendDataFrameByP7(stockDataFrame)
-    stockDataFrame = extendDataFrameByResult(stockDataFrame)
-    # stockDataFrame = extendDataFrameByResult02(stockDataFrame)
+
+    if args.resultMode == 1:
+        stockDataFrame = extendDataFrameByResult1(stockDataFrame)
+    else:
+        stockDataFrame = extendDataFrameByResult2(stockDataFrame)
 
     stockDataFrame = dropDataFrameColumns(stockDataFrame)
     stockDataFrame = dropDataFrameLastRow(stockDataFrame)
 
-    saveDataFrameToCsv(stockDataFrame, "../datasets/support/stock_result_0-1.csv", indexArg=False, headerArg=False)
+    saveDataFrameToCsv(stockDataFrame, "../datasets/support/" +
+                       args.outputFilename, indexArg=False, headerArg=False)
+
 
 if __name__ == "__main__":
     main()
