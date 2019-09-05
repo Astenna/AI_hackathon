@@ -198,7 +198,7 @@ def main():
 
     saveDataFrameToCsv(
         stockDataFrame,
-        "./datasets/inference/stock.csv",
+        "./datasets/inference/support/stock.csv",
         indexArg=False,
         headerArg=False,
     )

@@ -33,7 +33,7 @@ jobs:
 
       - run: 
           name: Get stock data
-          command: python3 src/inf_stock.py --start-date '2019-09-03' --end-date '2019-09-04'
+          command: python3 src/inf_stock.py --start-date '2019-09-04' --end-date '2019-09-05'
 
       - run: 
           name: Merge tweet and stock data
