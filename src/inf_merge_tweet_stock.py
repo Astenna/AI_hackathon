@@ -26,8 +26,13 @@ def merge_data_files(twitter_file, stock_file, output_file):
                 all_data_row = [date] + twitter_row + stock_row[1:]
                 all_data.append(all_data_row)
 
+    # # Save merged dataset to the file
+    # with open(output_file, "r") as csv_file:
+    #     reader = csv.reader(csv_file)
+    #     reader.readrows()
+
     # Save merged dataset to the file
-    with open(output_file, "a") as csv_file:
+    with open(output_file, "a", newline='') as csv_file:
         writer = csv.writer(csv_file)
         writer.writerows(all_data)
 
