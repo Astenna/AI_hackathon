@@ -19,7 +19,7 @@ def merge_data_files(twitter_file, stock_file, output_file):
         # next(reader)  # Skip row with headers
         for stock_row in reader:
             date = stock_row[0]
-            twitter_row = twitter_dict.get(date, [0 for x in range(4)])
+            twitter_row = twitter_dict.get(date, [])
             # Append only if twitter_row for this date is not empty
             if twitter_row:
                 twitter_row[0] /= max_tweets  # Also special for Adam
