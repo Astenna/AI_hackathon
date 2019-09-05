@@ -57,7 +57,7 @@ jobs:
 
       - run: 
           name: Show files twitter summary
-          command: cat predicions/prediction.json
+          command: cat predictions/prediction.json
 
 
 
