@@ -9,8 +9,9 @@ import numpy as np
 import csv
 import collections
 
+input_file_name = "twitter_converted.json"
 file_name = "tweets.json"
-results_dir = "./"
+results_dir = "./datasets/training/support"
 
 
 def count_valuable_data(tweets):
@@ -103,12 +104,12 @@ def count_valuable_data(tweets):
         twitter_dict[key] = data
         csv_list.append(data)
 
-    with open("data.csv", "w", newline="") as myfile:
-        wr = csv.writer(myfile)
-        wr.writerow(["date", "p1", "p2", "p3", "p4"])
-        wr.writerows(csv_list)
+    # with open("data.csv", "w", newline="") as myfile:
+    #     wr = csv.writer(myfile)
+    #     wr.writerow(["date", "p1", "p2", "p3", "p4"])
+    #     wr.writerows(csv_list)
 
-    with open("tweets_summary.json", 'w') as json_file:
+    with open(os.path.join(results_dir, file_name), 'w') as json_file:
         json.dump(twitter_dict, json_file, indent=4)
 
 
@@ -124,7 +125,7 @@ def parse_timestamp(tweets):
 
 
 def main():
-    with open("twitter_converted.json", "r") as tweets_file:
+    with open(os.path.join(results_dir, input_file_name), "r") as tweets_file:
         tweets = json.load(tweets_file)
 
     parse_timestamp(tweets)

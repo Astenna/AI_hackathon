@@ -9,8 +9,9 @@ def merge_data_files(twitter_file, stock_file, output_file):
     with open(twitter_file, "r") as json_file:
         twitter_dict = json.load(json_file)
 
-    # max_tweets = max([tweet[0] for tweet in twitter_dict.values()])  # Adam don't want
-    max_tweets = 225  # Magic number special for Adam <3
+    max_tweets = max([tweet[0] for tweet in twitter_dict.values()])  # Adam don't want
+    max_dict = {"max_tweets": max_tweets}
+    # max_tweets = 225  # Magic number special for Adam <3
 
     # Load stock trainig dataset
     with open(stock_file, "r") as csv_file:
@@ -30,6 +31,9 @@ def merge_data_files(twitter_file, stock_file, output_file):
         writer = csv.writer(csv_file)
         writer.writerows(all_data)
 
+    with open("datasets/training/support/max_tweet.json", 'w') as json_file:
+        json.dump(max_dict, json_file, indent=4)
+        
 
 if __name__ == "__main__":
     merge_data_files(
