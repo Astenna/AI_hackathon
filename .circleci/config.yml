@@ -11,6 +11,7 @@ jobs:
           command: docker build -f runtime/Dockerfile .
 
   stock_prediction:
+    working_directory: ~/AI_hackathon
     docker:
       - image: circleci/python:3.6.4
     steps:
