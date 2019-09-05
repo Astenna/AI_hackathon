@@ -1,7 +1,6 @@
 # API for twitter
-# Authors: Maciej Szuilk, Mariusz Wisniewski
+# Authors: Kinga Marek, Mariusz Wisniewski
 
-import tweepy
 import json
 import os
 import datetime
@@ -10,24 +9,9 @@ import numpy as np
 import csv
 import collections
 
-
-consumer_key = 'XWoLg0xPqVv89ngEBdCa7I6lj'
-consumer_secret = '8bDefO95U1TzRc3i3kjLLeDQmr0SkJ4zDE0bAa4OsfzAkPNSIH'
-access_token = '1056429787-Y0WK0EQwPpdwMKzACw2GVS7syOzto6z5S4BvSM2'
-access_token_secret = 'Jiy5l7XUR8hFsz0z4NauggNuXUorLWYteezAGJYQP3g1D'
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
-api = tweepy.API(auth,wait_on_rate_limit=True)
 file_name = "tweets.json"
 results_dir = "./"
 
-'''def download_tweets(query, start_date="2019-09-03", end_date="2019-09-04", tweet_count=5):
-    # tweets = {'date': [], 'text': [], 'screen_name': [], 'followers_count': []}
-    tweets = []
-    for tweet in tweepy.Cursor(api.search,q=query,lang="en",since=start_date,until=end_date,tweet_mode='extended').items():
-        tweets.append(tweet._json)
-    with open(os.path.join(results_dir, file_name), "w") as tweets_file:
-       json.dump(tweets, tweets_file, indent=4)'''
 
 def count_valuable_data(tweets):
     valuable_data = []
@@ -46,49 +30,77 @@ def count_valuable_data(tweets):
             output[tweet["date"]]["daily_tweets"] += 1
             if tweet["sentiment"] > 0:
                 output[tweet["date"]]["pos_sent"] += 1
-                output[tweet["date"]]["pos_retweets"] += tweet["retweets"]
-                output[tweet["date"]]["pos_favourites"] += tweet["favourites"]
+                output[tweet["date"]]["pos_retweets"] = int(tweet["retweets"]) + int(
+                    output[tweet["date"]]["pos_retweets"]
+                )
+                output[tweet["date"]]["pos_favorites"] = int(tweet["favorites"]) + int(
+                    output[tweet["date"]]["pos_favorites"]
+                )
             elif tweet["sentiment"] < 0:
                 output[tweet["date"]]["neg_sent"] += 1
-                output[tweet["date"]]["neg_retweets"] += tweet["retweets"]
-                output[tweet["date"]]["neg_favourites"] += tweet["favourites"]
+                output[tweet["date"]]["neg_retweets"] = int(tweet["retweets"]) + int(
+                    output[tweet["date"]]["neg_retweets"]
+                )
+                output[tweet["date"]]["neg_favorites"] = int(tweet["favorites"]) + int(
+                    output[tweet["date"]]["neg_favorites"]
+                )
         else:
             output[tweet["date"]] = dict()
             output[tweet["date"]]["pos_sent"] = 0
             output[tweet["date"]]["neg_sent"] = 0
             output[tweet["date"]]["neg_retweets"] = 0
-            output[tweet["date"]]["neg_favourites"] = 0
-            output[tweet["date"]]["neg_retweets"] = 0
-            output[tweet["date"]]["neg_favourites"] = 0
+            output[tweet["date"]]["neg_favorites"] = 0
+            output[tweet["date"]]["pos_retweets"] = 0
+            output[tweet["date"]]["pos_favorites"] = 0
             output[tweet["date"]]["daily_tweets"] = 1
             if tweet["sentiment"] > 0:
                 output[tweet["date"]]["pos_sent"] += 1
-                output[tweet["date"]]["pos_retweets"] += tweet["retweets"]
-                output[tweet["date"]]["pos_favourites"] += tweet["favourites"]
+                output[tweet["date"]]["pos_retweets"] = int(tweet["retweets"]) + int(
+                    output[tweet["date"]]["pos_retweets"]
+                )
+                output[tweet["date"]]["pos_favorites"] = int(tweet["favorites"]) + int(
+                    output[tweet["date"]]["pos_favorites"]
+                )
             elif tweet["sentiment"] < 0:
                 output[tweet["date"]]["neg_sent"] += 1
-                output[tweet["date"]]["neg_retweets"] += tweet["retweets"]
-                output[tweet["date"]]["neg_favourites"] += tweet["favourites"]
-                
+                output[tweet["date"]]["neg_retweets"] = int(tweet["retweets"]) + int(
+                    output[tweet["date"]]["neg_retweets"]
+                )
+                output[tweet["date"]]["neg_favorites"] = int(tweet["favorites"]) + int(
+                    output[tweet["date"]]["neg_favorites"]
+                )
+
     print(output)
     daily_tweets_list = [day.get("daily_tweets") for day in output.values()]
     print(daily_tweets_list)
     max_daily = max(daily_tweets_list)
 
-    csv_list = [] # data, p1, p2, p3, p4 (data, daily_tweets, p2 ok,  )
+    csv_list = []  # data, p1, p2, p3, p4 (data, daily_tweets, p2 ok,  )
     for key, value in output.items():
         data = []
         data.append(key)
-        data.append(value['daily_tweets'])
-        total_sent = value['pos_sent'] + value['neg_sent'] 
-        data.append(np.round(value['pos_sent']/total_sent, 5))
-        data.append(np.round(value['neg_sent']/total_sent, 5))
+        data.append(value["daily_tweets"])
+        total_sent = value["pos_sent"] + value["neg_sent"]
+        data.append(np.round(value["pos_sent"] / total_sent, 5))
+        data.append(np.round(value["neg_sent"] / total_sent, 5))
         # ((2*retweets+likes)pos - (2*retweets+likes)neg)/((2*retweets+likes)pos + (2*retweets+likes)neg)
-        data.append((2*value["pos_retweets"]+value["pos_favourites"] - 2*value["neg_retweets"]+value["neg_favourites"])
-            /(2*value["pos_retweets"]+value["pos_favourites"] + 2*value["neg_retweets"]+value["neg_favourites"]))
+        data.append(
+            (
+                2 * value["pos_retweets"]
+                + value["pos_favorites"]
+                - 2 * value["neg_retweets"]
+                + value["neg_favorites"]
+            )
+            / (
+                2 * value["pos_retweets"]
+                + value["pos_favorites"]
+                + 2 * value["neg_retweets"]
+                + value["neg_favorites"]
+            )
+        )
         csv_list.append(data)
-        
-    with open('data.csv', 'w', newline='') as myfile:
+
+    with open("data.csv", "w", newline="") as myfile:
         wr = csv.writer(myfile)
         wr.writerow(["date", "p1", "p2", "p3", "p4"])
         wr.writerows(csv_list)
@@ -96,17 +108,20 @@ def count_valuable_data(tweets):
 
 def execute_sentimentation(tweets):
     for tweet in tweets:
-        tweet["sentiment"] = TextBlob(tweet["full_text"]).polarity
+        tweet["sentiment"] = TextBlob(tweet["text"]).polarity
 
-'''def parse_timestamp(tweets):
+
+def parse_timestamp(tweets):
     for tweet in tweets:
-        tweet["date"] = str(datetime.datetime.strptime(tweet["date"], '%a %b %d %X +0000 %Y').date())'''
+        tweet["date"] = tweet["date"].split(" ")[0]
+        # tweet["date"] = str(datetime.datetime.strptime(tweet["date"], '%a %b %d %X +0000 %Y').date())
 
-        
+
 def main():
     with open("tweets_converted.json", "r") as tweets_file:
         tweets = json.load(tweets_file)
-    
+
+    parse_timestamp(tweets)
     execute_sentimentation(tweets)
     count_valuable_data(tweets)
 
