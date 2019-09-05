@@ -23,6 +23,14 @@ jobs:
           name: Download daily tweets
           command: python3 src/daily_update.py --querysearch '#Intel' --output 'datasets/inference/support/raw_tweets.csv'
   
+      - run:
+          name: Parse raw_tweets to json
+          command: python3 src/inf_parse_twitter_csv.py 
+
+      - run: 
+          name: Show files twitter summary
+          command: ls datasets/inference/support
+
 
   generate-website:
     working_directory: ~/AI_hackathon
