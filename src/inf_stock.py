@@ -186,9 +186,9 @@ def main():
     stockDataFrame = extendDataFrameByP6(stockDataFrame)
     stockDataFrame = extendDataFrameByP7(stockDataFrame)
 
-    if args.resultMode == 1:
+    if args.resultMode == "1":
         stockDataFrame = extendDataFrameByResult1(stockDataFrame)
-    elif args.resultMode == 2:
+    elif args.resultMode == "2":
         stockDataFrame = extendDataFrameByResult2(stockDataFrame)
     else:
         stockDataFrame = extendDataFrameByResult4(stockDataFrame)

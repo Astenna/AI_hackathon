@@ -32,6 +32,7 @@ def merge_data_files(twitter_file, stock_file, output_file):
     #     reader.readrows()
 
     # Save merged dataset to the file
+    print(all_data)
     with open(output_file, "a", newline='') as csv_file:
         writer = csv.writer(csv_file)
         writer.writerows(all_data)
