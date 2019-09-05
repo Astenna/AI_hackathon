@@ -1,7 +1,8 @@
 let palette = {
     increase: '#adff2f',
     decrease: '#e93d27',
-    font: '#000000'
+    font: '#000000',
+    blue: '#34ebeb'
 }
 
 Chart.defaults.global.defaultFontColor = palette.font;
@@ -16,7 +17,7 @@ let line_chart_data = {
     labels: [""].concat(labels),
     datasets: [{
         data: [0].concat(data),
-        label: "Passed",
+        label: "Increase",
         fill: true,
         backgroundColor: 'transparent',
         borderColor: palette.increase,
@@ -64,7 +65,7 @@ line_chart_data = {
     labels: [""].concat(labels),
     datasets: [{
         data: [0].concat(data),
-        label: "Passed",
+        label: "Decrease",
         fill: true,
         backgroundColor: 'transparent',
         borderColor: palette.decrease,
@@ -97,6 +98,52 @@ let line_chart_decrease = new Chart(line_trend_decrease, {
                     fontSize: 20,
                     display: true,
                     labelString: "decrease prediction"
+                }
+            }]
+        }
+    }
+});
+
+let line_trend_bin = document.getElementById("line_trend_bin");
+
+data = predictions.map(summary => (summary.prediction.increase > summary.prediction.decrease) ? 1 : 0);
+line_chart_data = {
+    labels: [""].concat(labels),
+    datasets: [{
+        data: [0].concat(data),
+        label: "General",
+        fill: true,
+        backgroundColor: 'transparent',
+        borderColor: palette.blue,
+        borderWidth: 2,
+        pointBackgroundColor: palette.blue,
+    }]
+}
+
+let line_chart_bin = new Chart(line_trend_bin, {
+    type: 'line',
+    data: line_chart_data,
+    options: {
+        responsive: true,
+        title: {
+            fontSize: 20,
+            display: false,
+            text: "General predict"
+        },
+        legend: {
+            display: false,
+            position: 'bottom'
+        },
+        scales: {
+            xAxes: [{}],
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                },
+                scaleLabel: {
+                    fontSize: 20,
+                    display: true,
+                    labelString: "general prediction"
                 }
             }]
         }

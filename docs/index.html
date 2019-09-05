@@ -32,17 +32,27 @@
             <div align="center">
                 <h5><span id="datetime"></span></h5>
                 <script>
-                    var dt = new Date()
+                    let dt = new Date()
                     document.getElementById("datetime").innerHTML = dt.toDateString();
                 </script>
             </div>
-    </div>  
+    </div>
     <div class="row justify-content-center">
             <div align="center">
-                <h5>Prediction for today: </h5>
-                   <p> chances for increase: 0.8175 <br>
-                       chances for decrease: 0.1825 </p>
+                <h5>Prediction for next market day: </h5>
+                    <p> chances for increase: 0.8175 <br>
+                      chances for decrease: 0.1825 </p>
             </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <h5>History of predictions</h5>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <canvas id="line_trend_bin" data='[{"date": "2019-08-19", "prediction": {"decrease": "0.88977", "increase": "0.11023"}}, {"date": "2019-08-20", "prediction": {"decrease": "0.44836", "increase": "0.55164"}}, {"date": "2019-08-21", "prediction": {"decrease": "0.22985", "increase": "0.77015"}}, {"date": "2019-08-22", "prediction": {"decrease": "0.17472", "increase": "0.82528"}}, {"date": "2019-08-23", "prediction": {"decrease": "0.65129", "increase": "0.34871"}}, {"date": "2019-08-26", "prediction": {"decrease": "0.34253", "increase": "0.65747"}}, {"date": "2019-08-27", "prediction": {"decrease": "0.78715", "increase": "0.21285"}}, {"date": "2019-08-28", "prediction": {"decrease": "0.4831", "increase": "0.5169"}}, {"date": "2019-08-29", "prediction": {"decrease": "0.83909", "increase": "0.16091"}}, {"date": "2019-08-30", "prediction": {"decrease": "0.555", "increase": "0.445"}}, {"date": "2019-09-03", "prediction": {"decrease": "0.97056", "increase": "0.02944"}}, {"date": "2019-09-04", "prediction": {"decrease": "0.1825", "increase": "0.8175"}}]' style="width: 50vw"></canvas>
+        </div>
     </div>
     <div class="row justify-content-center">
         <div class="col-auto">
@@ -51,7 +61,7 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-auto">
-            <canvas id="line_trend_increase" data='[{"date": "2019-09-04", "prediction": {"decrease": "0.1825", "increase": "0.8175"}}]' style="width: 50vw"></canvas>
+            <canvas id="line_trend_increase" data='[{"date": "2019-08-19", "prediction": {"decrease": "0.88977", "increase": "0.11023"}}, {"date": "2019-08-20", "prediction": {"decrease": "0.44836", "increase": "0.55164"}}, {"date": "2019-08-21", "prediction": {"decrease": "0.22985", "increase": "0.77015"}}, {"date": "2019-08-22", "prediction": {"decrease": "0.17472", "increase": "0.82528"}}, {"date": "2019-08-23", "prediction": {"decrease": "0.65129", "increase": "0.34871"}}, {"date": "2019-08-26", "prediction": {"decrease": "0.34253", "increase": "0.65747"}}, {"date": "2019-08-27", "prediction": {"decrease": "0.78715", "increase": "0.21285"}}, {"date": "2019-08-28", "prediction": {"decrease": "0.4831", "increase": "0.5169"}}, {"date": "2019-08-29", "prediction": {"decrease": "0.83909", "increase": "0.16091"}}, {"date": "2019-08-30", "prediction": {"decrease": "0.555", "increase": "0.445"}}, {"date": "2019-09-03", "prediction": {"decrease": "0.97056", "increase": "0.02944"}}, {"date": "2019-09-04", "prediction": {"decrease": "0.1825", "increase": "0.8175"}}]' style="width: 50vw"></canvas>
         </div>
     </div>
     <div class="row justify-content-center">
@@ -59,10 +69,10 @@
             <h5>History of decrease predictions</h5>
         </div>
     </div>
-    
+
     <div class="row justify-content-center">
         <div class="col-auto">
-            <canvas id="line_trend_decrease" data='[{"date": "2019-09-04", "prediction": {"decrease": "0.1825", "increase": "0.8175"}}]' style="width: 50vw"></canvas>
+            <canvas id="line_trend_decrease" data='[{"date": "2019-08-19", "prediction": {"decrease": "0.88977", "increase": "0.11023"}}, {"date": "2019-08-20", "prediction": {"decrease": "0.44836", "increase": "0.55164"}}, {"date": "2019-08-21", "prediction": {"decrease": "0.22985", "increase": "0.77015"}}, {"date": "2019-08-22", "prediction": {"decrease": "0.17472", "increase": "0.82528"}}, {"date": "2019-08-23", "prediction": {"decrease": "0.65129", "increase": "0.34871"}}, {"date": "2019-08-26", "prediction": {"decrease": "0.34253", "increase": "0.65747"}}, {"date": "2019-08-27", "prediction": {"decrease": "0.78715", "increase": "0.21285"}}, {"date": "2019-08-28", "prediction": {"decrease": "0.4831", "increase": "0.5169"}}, {"date": "2019-08-29", "prediction": {"decrease": "0.83909", "increase": "0.16091"}}, {"date": "2019-08-30", "prediction": {"decrease": "0.555", "increase": "0.445"}}, {"date": "2019-09-03", "prediction": {"decrease": "0.97056", "increase": "0.02944"}}, {"date": "2019-09-04", "prediction": {"decrease": "0.1825", "increase": "0.8175"}}]' style="width: 50vw"></canvas>
         </div>
     </div>
 </div>
