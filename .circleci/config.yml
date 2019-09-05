@@ -10,6 +10,7 @@ jobs:
           name: Build tensorflow docker image
           command: docker build -f runtime/Dockerfile .
 
+          
   stock_prediction:  
     docker:
       - image: circleci/python:3.6.4
