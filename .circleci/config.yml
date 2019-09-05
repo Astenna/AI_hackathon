@@ -22,6 +22,24 @@ jobs:
           name: Generate static page
           command: python3 website-generator/generator.py
 
+
+      - add_ssh_keys:
+          fingerprints:
+            - "75:5b:30:a6:df:e6:25:9c:80:5f:30:6a:98:a1:e4:39"
+
+      - run:
+          name: Deploy results
+          working_directory: ~/ngraph-ci-test
+          command: |
+            git config --global user.email "blue@wolves.com"
+            git config --global user.name "blue-wolves"
+
+            git pull origin master
+            git add docs
+            git commit --allow-empty -m "Test update [ci skip]"
+            git push origin master
+
+
 workflows:
   version: 2
   build_on_commit:
