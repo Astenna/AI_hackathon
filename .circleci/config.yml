@@ -10,7 +10,6 @@ jobs:
           name: Build tensorflow docker image
           command: docker build -f runtime/Dockerfile .
 
-
   stock_prediction:  
     docker:
       - image: circleci/python:3.6.4
@@ -22,11 +21,11 @@ jobs:
 
       - run:
           name: Install tensorflow
-          command: sudo pip install tensorflow --ignore-installed
+          command: sudo pip install --upgrade tensorflow --ignore-installed
 
       - run:
           name: Download daily tweets
-          command: python3 src/daily_update.py --querysearch '#Intel' --output 'datasets/inference/support/raw_tweets.csv' && cat datasets/inference/support/raw_tweets.csv 
+          command: python3 src/inf_daily_update.py --querysearch '#Intel' --output 'datasets/inference/support/raw_tweets.csv' && cat datasets/inference/support/raw_tweets.csv 
 
       - run: 
           name: Show raw twitter data
@@ -75,7 +74,6 @@ jobs:
       - run: 
           name: Show files twitter summary
           command: cat predictions/prediction.json
-
 
 
   generate-website:
