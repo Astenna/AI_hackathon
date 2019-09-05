@@ -14,7 +14,6 @@ results_dir = "./"
 
 
 def count_valuable_data(tweets):
-    valuable_data = []
 
     dates = [tweet.get("date") for tweet in tweets]
     from collections import Counter
@@ -74,11 +73,14 @@ def count_valuable_data(tweets):
     daily_tweets_list = [day.get("daily_tweets") for day in output.values()]
     print(daily_tweets_list)
     max_daily = max(daily_tweets_list)
+    print("MAX")
+    print(max_daily)
 
     csv_list = []  # data, p1, p2, p3, p4 (data, daily_tweets, p2 ok,  )
+    twitter_dict = dict()
     for key, value in output.items():
         data = []
-        data.append(key)
+        # data.append(key)
         data.append(value["daily_tweets"])
         total_sent = value["pos_sent"] + value["neg_sent"]
         data.append(np.round(value["pos_sent"] / total_sent, 5))
@@ -98,12 +100,16 @@ def count_valuable_data(tweets):
                 + value["neg_favorites"]
             )
         )
+        twitter_dict[key] = data
         csv_list.append(data)
 
     with open("data.csv", "w", newline="") as myfile:
         wr = csv.writer(myfile)
         wr.writerow(["date", "p1", "p2", "p3", "p4"])
         wr.writerows(csv_list)
+
+    with open("tweets_summary.json", 'w') as json_file:
+        json.dump(twitter_dict, json_file, indent=4)
 
 
 def execute_sentimentation(tweets):
@@ -118,7 +124,7 @@ def parse_timestamp(tweets):
 
 
 def main():
-    with open("tweets_converted.json", "r") as tweets_file:
+    with open("twitter_converted.json", "r") as tweets_file:
         tweets = json.load(tweets_file)
 
     parse_timestamp(tweets)
