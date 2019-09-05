@@ -18,12 +18,12 @@ def merge_data_files(twitter_file, stock_file, output_file):
         reader = csv.reader(csv_file)
         next(reader)  # Skip row with headers
         for stock_row in reader:
-            date = stock_row[2]
+            date = stock_row[1]
             twitter_row = twitter_dict.get(date, [0 for x in range(4)])
             # Append only if twitter_row for this date is not empty
             if twitter_row:
                 twitter_row[0] /= max_tweets  # Also special for Adam
-                all_data_row = [date] + twitter_row + stock_row[3:]
+                all_data_row = [date] + twitter_row + stock_row[2:]
                 all_data.append(all_data_row)
 
     # Save merged dataset to the file
@@ -33,11 +33,11 @@ def merge_data_files(twitter_file, stock_file, output_file):
 
     with open("datasets/training/support/max_tweet.json", 'w') as json_file:
         json.dump(max_dict, json_file, indent=4)
-        
+
 
 if __name__ == "__main__":
     merge_data_files(
         twitter_file="datasets/training/support/tweets_summary.json",
-        stock_file="datasets/training/support/stock_new.csv",
+        stock_file="datasets/training/support/stock_data_binary.csv",
         output_file="datasets/training/prepared/training_data.csv",
     )
