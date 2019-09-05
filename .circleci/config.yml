@@ -68,11 +68,7 @@ jobs:
           command: python3 src/nn.py
 
       - run: 
-          name: Show files twitter summary
-          command: ls datasets/inference/support && cat datasets/inference/prepared/inference_data.csv
-
-      - run: 
-          name: Show files twitter summary
+          name: Show prediction
           command: cat predictions/prediction.json
 
 

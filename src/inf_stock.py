@@ -173,11 +173,11 @@ def main():
 
     saveDataFrameToCsv(
         stockDataFrame,
-        "./datasets/inference/support/" + args.plainFilename,
+        "datasets/inference/support/" + args.plainFilename,
         indexArg=True,
         headerArg=True,
     )
-    stockDataFrame = readCsvfFile("./datasets/inference/support/" + args.plainFilename)
+    stockDataFrame = readCsvfFile("datasets/inference/support/" + args.plainFilename)
 
     # stockDataFrame = stockDataFrame.reset_index()
 
@@ -198,7 +198,7 @@ def main():
 
     saveDataFrameToCsv(
         stockDataFrame,
-        "./datasets/inference/support/stock.csv",
+        "datasets/inference/support/stock.csv",
         indexArg=False,
         headerArg=False,
     )
