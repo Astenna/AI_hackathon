@@ -33,11 +33,11 @@ jobs:
 
       - run:
           name: Parse raw_tweets to json
-          command: python3 src/inf_parse_twitter_csv.py twitter_converted.json
+          command: python3 src/inf_parse_twitter_csv.py 
 
       - run: 
           name: Show json twitter data
-          command: cat datasets/inference/support/raw_tweets.csv
+          command: cat datasets/inference/support/twitter_converted.json
 
       - run: 
           name: Twitter json per date summary
