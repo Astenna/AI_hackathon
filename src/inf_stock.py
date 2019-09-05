@@ -162,7 +162,7 @@ def main():
     parser.add_argument(
         "--result",
         dest="resultMode",
-        default=1,
+        default="1",
         help="Result mode 0-x (possible: 1, 2, 4)",
     )
 
