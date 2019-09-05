@@ -81,10 +81,10 @@ jobs:
             git config --global user.email "blue@wolves.com"
             git config --global user.name "blue-wolves"
 
-            git pull origin master
+            git pull
             git add predictions
             git commit --allow-empty -m "Update prediction [ci skip]"
-            git push origin master
+            git push
 
 
   generate-website:
@@ -129,8 +129,11 @@ workflows:
   daily_workflow:
     jobs:
       # - build_environment
-      # - generate-website
       - stock_prediction
+      - generate-website:
+          requires:
+            - stock_prediction
+
 
     triggers:
       - schedule:
