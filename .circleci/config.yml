@@ -71,6 +71,21 @@ jobs:
           name: Show prediction
           command: cat predictions/prediction.json
 
+      - add_ssh_keys:
+          fingerprints:
+            - "75:5b:30:a6:df:e6:25:9c:80:5f:30:6a:98:a1:e4:39"
+      - run:
+          name: Commit prediction
+          working_directory: ~/AI_hackathon
+          command: |
+            git config --global user.email "blue@wolves.com"
+            git config --global user.name "blue-wolves"
+
+            git pull origin master
+            git add predictions
+            git commit --allow-empty -m "Update prediction [ci skip]"
+            git push origin master
+
 
   generate-website:
     working_directory: ~/AI_hackathon
@@ -99,7 +114,7 @@ jobs:
 
             git pull origin master
             git add docs
-            git commit --allow-empty -m "Test update [ci skip]"
+            git commit --allow-empty -m "Update frontend [ci skip]"
             git push origin master
 
 
