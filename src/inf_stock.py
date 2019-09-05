@@ -168,8 +168,9 @@ def main():
 
     args = parser.parse_args()
 
-    stockDataFrame = fetchDataFromPeriod(args.startDate, args.endDate)
-    # stockDataFrame = fetchDataFromPredefinedPeriod("5d")
+    # stockDataFrame = fetchDataFromPeriod(args.startDate, args.endDate)
+    stockDataFrame = fetchDataFromPredefinedPeriod("2d")
+    print(stockDataFrame)
 
     saveDataFrameToCsv(
         stockDataFrame,
@@ -193,8 +194,8 @@ def main():
         stockDataFrame = extendDataFrameByResult4(stockDataFrame)
 
     stockDataFrame = dropDataFrameColumns(stockDataFrame)
-    if args.startDate != args.endDate:
-        stockDataFrame = dropDataFrameLastRow(stockDataFrame)
+    # if args.startDate != args.endDate:
+    #     stockDataFrame = dropDataFrameLastRow(stockDataFrame)
 
     saveDataFrameToCsv(
         stockDataFrame,
