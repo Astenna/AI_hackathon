@@ -2,7 +2,7 @@ import yfinance as yf
 import pandas as pd
 import json
 import numpy as np
-from datetime import date
+from datetime import date, timedelta, datetime
 from argparse import ArgumentParser
 
 
@@ -128,11 +128,12 @@ def readCsvfFile(fileName):
 
 def main():
     parser = ArgumentParser()
-
+    print(date.today().strftime("%Y-%m-%d"))
     parser.add_argument(
         "--start-date",
         dest="startDate",
-        default=date.today().strftime("%Y-%m-%d"),
+        # default=date.today().strftime("%Y-%m-%d"),
+        default=str((datetime.today() - timedelta(days=1)).strftime("%Y-%m-%d")),
         help="Start date in YYYY-MM-DD format",
     )
 
@@ -168,6 +169,7 @@ def main():
 
     stockDataFrame = fetchDataFromPeriod(args.startDate, args.endDate)
     # stockDataFrame = fetchDataFromPredefinedPeriod("5d")
+    print(stockDataFrame)
 
     saveDataFrameToCsv(stockDataFrame, "../datasets/support/" +
                        args.plainFilename, indexArg=True, headerArg=True)
@@ -187,6 +189,7 @@ def main():
         stockDataFrame = extendDataFrameByResult4(stockDataFrame)
 
     stockDataFrame = dropDataFrameColumns(stockDataFrame)
+
     if(args.startDate != args.endDate):
         stockDataFrame = dropDataFrameLastRow(stockDataFrame)
 
