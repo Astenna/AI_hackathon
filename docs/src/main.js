@@ -1,7 +1,7 @@
 let palette = {
     increase: '#adff2f',
     decrease: '#e93d27',
-    font: '#c7d4d3'
+    font: '#000000'
 }
 
 Chart.defaults.global.defaultFontColor = palette.font;
@@ -37,7 +37,8 @@ let line_chart_increase = new Chart(line_trend_increase, {
         },
         legend: {
             display: false,
-            position: 'bottom'
+            position: 'bottom',
+            fontColor: '#000000'
         },
         scales: {
             xAxes: [{}],

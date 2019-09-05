@@ -13,20 +13,40 @@
     <link rel="stylesheet" href="./css/base.css" />
 
 </head>
-
 <body>
     <div>
         
 
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-auto">
+        <div align="center" class="col-auto">
             <h1>INTEL STOCK PRICE PREDICTION</h1>
         </div>
     </div>
     <div class="row justify-content-center">
+        <div align="center">
+            <img src="images/wolf.png" width="70" height="70">
+        </div>
+    </div>
+    <div class="row justify-content-center">
+            <div align="center">
+                <h5><span id="datetime"></span></h5>
+                <script>
+                    var dt = new Date()
+                    document.getElementById("datetime").innerHTML = dt.toDateString();
+                </script>
+            </div>
+    </div>  
+    <div class="row justify-content-center">
+            <div align="center">
+                <h5>Prediction for today: </h5>
+                   <p> chances for increase: 0.3 <br>
+                       chances for decrease: 0.7 </p>
+            </div>
+    </div>
+    <div class="row justify-content-center">
         <div class="col-auto">
-            <h5>Hiistory of increase predictions</h5>
+            <h5>History of increase predictions</h5>
         </div>
     </div>
     <div class="row justify-content-center">
@@ -36,9 +56,10 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-auto">
-            <h5>Hiistory of decrease predictions</h5>
+            <h5>History of decrease predictions</h5>
         </div>
     </div>
+    
     <div class="row justify-content-center">
         <div class="col-auto">
             <canvas id="line_trend_decrease" data='[{"date": "09.08.2018", "prediction": {"decrease": "0.4", "increase": "0.6"}}, {"date": "10.08.2018", "prediction": {"decrease": "0.1", "increase": "0.9"}}, {"date": "11.08.2018", "prediction": {"decrease": "0.4", "increase": "0.6"}}, {"date": "12.08.2018", "prediction": {"decrease": "0.8", "increase": "0.2"}}, {"date": "13.08.2018", "prediction": {"decrease": "0.7", "increase": "0.3"}}]' style="width: 50vw"></canvas>

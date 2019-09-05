@@ -1,12 +1,33 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-auto">
+        <div align="center" class="col-auto">
             <h1>INTEL STOCK PRICE PREDICTION</h1>
         </div>
     </div>
     <div class="row justify-content-center">
+        <div align="center">
+            <img src="images/wolf.png" width="70" height="70">
+        </div>
+    </div>
+    <div class="row justify-content-center">
+            <div align="center">
+                <h5><span id="datetime"></span></h5>
+                <script>
+                    var dt = new Date()
+                    document.getElementById("datetime").innerHTML = dt.toDateString();
+                </script>
+            </div>
+    </div>  
+    <div class="row justify-content-center">
+            <div align="center">
+                <h5>Prediction for today: </h5>
+                   <p> chances for increase: {{database.predictions[-1].prediction.increase}} <br>
+                       chances for decrease: {{database.predictions[-1].prediction.decrease}} </p>
+            </div>
+    </div>
+    <div class="row justify-content-center">
         <div class="col-auto">
-            <h5>Hiistory of increase predictions</h5>
+            <h5>History of increase predictions</h5>
         </div>
     </div>
     <div class="row justify-content-center">
@@ -16,9 +37,10 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-auto">
-            <h5>Hiistory of decrease predictions</h5>
+            <h5>History of decrease predictions</h5>
         </div>
     </div>
+    
     <div class="row justify-content-center">
         <div class="col-auto">
             <canvas id="line_trend_decrease" data='{{ database.predictions|tojson }}' style="width: 50vw"></canvas>
