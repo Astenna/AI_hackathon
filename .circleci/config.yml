@@ -1,0 +1,43 @@
+version: 2
+jobs:
+  build_environment:
+    machine: true
+    working_directory: ~/AI_hackathon
+    steps:
+      - checkout
+      - run:
+          name: Build tensorflow docker image
+          command: docker build -f runtime/Dockerfile .
+
+  generate-website:
+    working_directory: ~/ngraph-ci-test
+    docker:
+      - image: circleci/python:3.6.4
+    steps:
+      - checkout
+      - run:
+          name: Install requirements
+          command: sudo pip install --upgrade -r requirements_web.txt
+      - run:
+          name: Generate static page
+          command: python3 website-generator/generator.py
+
+workflows:
+  version: 2
+  build_on_commit:
+    jobs:
+      - build_environment
+      - generate-website
+
+  daily_workflow:
+    jobs:
+      - build_environment
+      - generate-website
+
+    triggers:
+      - schedule:
+          cron: "00 11 * * *"
+          filters:
+            branches:
+              only:
+                - master
