@@ -39,5 +39,5 @@ if __name__ == "__main__":
     merge_data_files(
         twitter_file="datasets/inference/support/tweets_to_merge.json",
         stock_file="datasets/inference/support/stock.csv",
-        output_file="datasets/inference/prepared/training_data.csv",
+        output_file="datasets/inference/prepared/inference_data.csv",
     )

@@ -40,8 +40,12 @@ jobs:
           command: python3 src/inf_merge_tweet_stock.py
 
       - run: 
+          name: Load model and predict stock price
+          command: python3 src/nn.py
+
+      - run: 
           name: Show files twitter summary
-          command: ls datasets/inference/support && cat datasets/inference/prepared/training_data.csv
+          command: ls datasets/inference/support && cat datasets/inference/prepared/inference_data.csv
 
 
   generate-website:
