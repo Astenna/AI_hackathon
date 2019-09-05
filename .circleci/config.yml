@@ -85,6 +85,7 @@ jobs:
 
             git pull origin master
             git add predictions
+            git add datasets/inference/prepared
             git commit --allow-empty -m "Update prediction [ci skip]"
             git push origin master
 
@@ -126,7 +127,9 @@ workflows:
     jobs:
       # - build_environment
       - stock_prediction
-      # - generate-website
+      - generate-website:
+          requires:
+            - stock_prediction
 
   daily_workflow:
     jobs:
