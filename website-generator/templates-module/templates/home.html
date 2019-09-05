@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div align="center" class="col-auto">
@@ -47,3 +48,32 @@
         </div>
     </div>
 </div>
+=======
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <h1>INTEL STOCK PRICE PREDICTION</h1>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <h5>Hiistory of increase predictions</h5>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <canvas id="line_trend_increase" data='{{ database.predictions|tojson }}' style="width: 50vw"></canvas>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <h5>Hiistory of decrease predictions</h5>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <canvas id="line_trend_decrease" data='{{ database.predictions|tojson }}' style="width: 50vw"></canvas>
+        </div>
+    </div>
+</div>
+>>>>>>> e615b1735e7f723bb48de790f9915f90560e9b31
