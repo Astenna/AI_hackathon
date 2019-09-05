@@ -25,7 +25,7 @@ jobs:
       
       - run:
           name: Install tensorflow
-          command: pip install tensorflow
+          command: sudo pip install tensorflow --ignore-installed
 
       - run:
           name: Parse raw_tweets to json
