@@ -44,6 +44,10 @@ jobs:
           command: python3 src/inf_merge_tweet_stock.py
 
       - run: 
+          name: Show inference data
+          command: cat datasets/inference/prepared/inference_data.csv
+
+      - run: 
           name: Load model and predict stock price
           command: python3 src/nn.py
 
