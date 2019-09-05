@@ -19,8 +19,8 @@ if __name__ == "__main__":
     # Website
     # Create Jinja2 templates environment
     database = OrderedDict()
-    with open("website-generator/input", "r") as tweets_file:
-        database["predictions"] = json.load(tweets_file)
+    with open("predictions/prediction.json", "r") as prediction_file:
+        database["predictions"] = json.load(prediction_file)
 
     env = Environment(
         loader=PackageLoader("templates-module", "templates"),
