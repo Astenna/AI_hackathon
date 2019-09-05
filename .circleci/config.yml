@@ -1,3 +1,4 @@
+# Author: Katarzyna Mitrus
 version: 2
 jobs:
   build_environment:
@@ -9,8 +10,87 @@ jobs:
           name: Build tensorflow docker image
           command: docker build -f runtime/Dockerfile .
 
+  stock_prediction:
+    working_directory: ~/AI_hackathon
+    docker:
+      - image: circleci/python:3.6.4
+    steps:
+      - checkout
+      - run:
+          name: Install requirements
+          command: sudo pip install --upgrade -r requirements_pred.txt --ignore-installed
+
+      - run:
+          name: Install tensorflow
+          command: sudo pip install --upgrade tensorflow --ignore-installed
+
+      - run:
+          name: Download daily tweets
+          command: python3 src/inf_daily_update.py --querysearch '#Intel' --output 'datasets/inference/support/raw_tweets.csv' && cat datasets/inference/support/raw_tweets.csv
+
+      - run:
+          name: Show raw twitter data
+          command: cat datasets/inference/support/raw_tweets.csv
+
+      - run:
+          name: Parse raw_tweets to json
+          command: python3 src/inf_parse_twitter_csv.py
+
+      - run:
+          name: Show json twitter converted data
+          command: cat datasets/inference/support/twitter_converted.json
+
+      - run:
+          name: Twitter json per date summary
+          command: python3 src/inf_twapi.py
+
+      - run:
+          name: Show twitter data summary
+          command: cat datasets/inference/support/tweets_to_merge.json
+
+      - run:
+          name: Get stock data
+          command: python3 src/inf_stock.py --start-date '2019-09-05' --end-date '2019-09-05'
+
+      - run:
+          name: Show stock data
+          command: cat datasets/inference/support/stock.csv
+
+      - run:
+          name: Merge tweet and stock data
+          command: python3 src/inf_merge_tweet_stock.py
+
+      - run:
+          name: Show inference data
+          command: cat datasets/inference/prepared/inference_data.csv
+
+      - run:
+          name: Load model and predict stock price
+          command: python3 src/nn.py
+
+      - run:
+          name: Show prediction
+          command: cat predictions/prediction.json
+
+      - add_ssh_keys:
+          fingerprints:
+            - "75:5b:30:a6:df:e6:25:9c:80:5f:30:6a:98:a1:e4:39"
+
+      - run:
+          name: Commit prediction
+          working_directory: ~/AI_hackathon
+          command: |
+            git config --global user.email "blue@wolves.com"
+            git config --global user.name "blue-wolves"
+
+            git pull origin master
+            git add predictions
+            git commit --allow-empty -m "Update prediction [ci skip]"
+            git push origin master
+
+
   generate-website:
-    working_directory: ~/ngraph-ci-test
+    working_directory: ~/AI_hackathon
     docker:
       - image: circleci/python:3.6.4
     steps:
@@ -29,14 +109,14 @@ jobs:
 
       - run:
           name: Deploy results
-          working_directory: ~/ngraph-ci-test
+          working_directory: ~/AI_hackathon
           command: |
             git config --global user.email "blue@wolves.com"
             git config --global user.name "blue-wolves"
 
             git pull origin master
             git add docs
-            git commit --allow-empty -m "Test update [ci skip]"
+            git commit --allow-empty -m "Update frontend [ci skip]"
             git push origin master
 
 
@@ -44,17 +124,22 @@ workflows:
   version: 2
   build_on_commit:
     jobs:
-      - build_environment
-      - generate-website
+      # - build_environment
+      - stock_prediction
+      # - generate-website
 
   daily_workflow:
     jobs:
-      - build_environment
-      - generate-website
+      # - build_environment
+      - stock_prediction
+      - generate-website:
+          requires:
+            - stock_prediction
+
 
     triggers:
       - schedule:
-          cron: "00 11 * * *"
+          cron: "30 04 * * *"
           filters:
             branches:
               only:

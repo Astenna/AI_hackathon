@@ -28,8 +28,8 @@ def getMinFromMins(dataFrame):
 
 def extendDataFrameByP5(dataFrame):
     return dataFrame.assign(
-        P5=lambda dataFrame: abs(
-            dataFrame["Close"] - dataFrame["Open"]) / (dataFrame["High"] - dataFrame["Low"]),
+        P5=lambda dataFrame: abs(dataFrame["Close"] - dataFrame["Open"])
+        / (dataFrame["High"] - dataFrame["Low"])
     )
 
 
@@ -38,8 +38,8 @@ def extendDataFrameByP6(dataFrame):
     minFromMins = getMinFromMins(dataFrame)
 
     return dataFrame.assign(
-        P6=lambda dataFrame: (
-            dataFrame["Close"] - minFromMins) / (maxFromMaxs - minFromMins)
+        P6=lambda dataFrame: (dataFrame["Close"] - minFromMins)
+        / (maxFromMaxs - minFromMins)
     )
 
 
@@ -109,7 +109,9 @@ def extendDataFrameByResult4(dataFrame):
 
 
 def dropDataFrameColumns(dataFrame):
-    return dataFrame.drop(columns=['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume'])
+    return dataFrame.drop(
+        columns=["Open", "High", "Low", "Close", "Adj Close", "Volume"]
+    )
 
 
 def dropDataFrameLastRow(dataFrame):
@@ -161,7 +163,7 @@ def main():
         "--result",
         dest="resultMode",
         default="1",
-        help="Result mode 0-x (possible: 1, 2, 4)"
+        help="Result mode 0-x (possible: 1, 2, 4)",
     )
 
     args = parser.parse_args()
@@ -169,8 +171,12 @@ def main():
     stockDataFrame = fetchDataFromPeriod(args.startDate, args.endDate)
     # stockDataFrame = fetchDataFromPredefinedPeriod("5d")
 
-    saveDataFrameToCsv(stockDataFrame, "../datasets/support/" +
-                       args.plainFilename, indexArg=True, headerArg=True)
+    saveDataFrameToCsv(
+        stockDataFrame,
+        "../datasets/support/" + args.plainFilename,
+        indexArg=True,
+        headerArg=True,
+    )
     stockDataFrame = readCsvfFile("../datasets/support/" + args.plainFilename)
 
     # stockDataFrame = stockDataFrame.reset_index()
@@ -187,11 +193,15 @@ def main():
         stockDataFrame = extendDataFrameByResult4(stockDataFrame)
 
     stockDataFrame = dropDataFrameColumns(stockDataFrame)
-    if(args.startDate != args.endDate):
+    if args.startDate != args.endDate:
         stockDataFrame = dropDataFrameLastRow(stockDataFrame)
 
-    saveDataFrameToCsv(stockDataFrame, "../datasets/support/" +
-                       args.outputFilename, indexArg=False, headerArg=False)
+    saveDataFrameToCsv(
+        stockDataFrame,
+        "../datasets/support/" + args.outputFilename,
+        indexArg=False,
+        headerArg=False,
+    )
 
 
 if __name__ == "__main__":
