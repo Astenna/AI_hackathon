@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container">
     <div class="row justify-content-center">
         <div align="center" class="col-auto">
             <h1>INTEL STOCK PRICE PREDICTION</h1>
@@ -20,19 +20,17 @@
     </div>
     <div class="row justify-content-center">
             <div align="center">
-                <h5>Prediction for next market day: </h5>
-                    <p> chances for increase: {{database.predictions[-1].prediction.increase}} <br>
-                      chances for decrease: {{database.predictions[-1].prediction.decrease}} </p>
+                <h4>Prediction for the next market day: </h4>
+                    <h5 class="increase"> • Chances for increase: {{database.predictions[-1].prediction.increase}} </h5>
+                     <h5 class="decrease"> • Chances for decrease: {{database.predictions[-1].prediction.decrease}}</h5>
             </div>
     </div>
     <div class="row justify-content-center">
         <div class="col-auto">
-            <h5>History of predictions</h5>
+            <canvas id='bar_chart' data='{{ database.predictions|tojson }}' style="width: 40vw"></canvas>
         </div>
-    </div>
-    <div class="row justify-content-center">
         <div class="col-auto">
-            <canvas id="line_trend_bin" data='{{ database.predictions|tojson }}' style="width: 50vw"></canvas>
+            <canvas id="line_trend_bin" data='{{ database.predictions|tojson }}' style="width: 40vw"></canvas>
         </div>
     </div>
     <div class="row justify-content-center">
