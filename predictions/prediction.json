@@ -2,7 +2,6 @@
     {
         "date": "2019-09-05",
         "prediction": {
-<<<<<<< HEAD
             "increase": "0.11023",
             "decrease": "0.88977"
         }
@@ -82,10 +81,6 @@
         "prediction": {
             "increase": "0.8175",
             "decrease": "0.1825"
-=======
-            "increase": "nan",
-            "decrease": "nan"
->>>>>>> 7b44c74a738aadfa6d7a090b2edf27d758073f48
         }
     }
 ]
