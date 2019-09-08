@@ -130,14 +130,13 @@ workflows:
           requires:
             - stock_prediction
 
-  daily_workflow:
-    jobs:
-      # - build_environment
-      - stock_prediction
-      - generate-website:
-          requires:
-            - stock_prediction
-
+  # daily_workflow:
+  #   jobs:
+  #     # - build_environment
+  #     - stock_prediction
+  #     - generate-website:
+  #         requires:
+  #           - stock_prediction
 
     triggers:
       - schedule:

@@ -1,7 +1,7 @@
 let palette = {
     increase: '#adff2f',
     decrease: '#e93d27',
-    font: '#000000',
+    font: '#3e423e',
     blue: '#34ced9',
     gray: '#bfbfbf'
 }
