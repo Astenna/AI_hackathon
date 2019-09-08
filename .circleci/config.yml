@@ -137,10 +137,9 @@ workflows:
               only:
                 - master
 
-    on_commit:
-      jobs:
-        # - build_environment
-        - stock_prediction
-        - generate-website:
-            requires:
-              - stock_prediction
+  on_commit:
+    jobs:
+      - stock_prediction
+      - generate-website:
+          requires:
+            - stock_prediction
