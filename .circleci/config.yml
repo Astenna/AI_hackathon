@@ -122,7 +122,6 @@ jobs:
 
 workflows:
   version: 2
-
   daily_workflow:
     jobs:
       - stock_prediction
@@ -132,7 +131,7 @@ workflows:
 
     triggers:
       - schedule:
-          cron: "30 04 * * * 1,2,3,4,5"
+          cron: "30 04 * * 1,2,3,4,5"
           filters:
             branches:
               only:
