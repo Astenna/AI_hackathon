@@ -21,7 +21,6 @@ if __name__ == "__main__":
     database = OrderedDict()
     with open("predictions/prediction.json", "r") as prediction_file:
         database["predictions"] = json.load(prediction_file)
-        database["predictions"] = database["predictions"][-15:]
 
     env = Environment(
         loader=PackageLoader("templates-module", "templates"),
