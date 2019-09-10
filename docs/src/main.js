@@ -15,9 +15,9 @@ let predictions = JSON.parse(line_trend_increase.getAttribute("data"));
 let labels = predictions.map(summary => summary.date.split(' ')[0]);
 let data = predictions.map(summary => summary.prediction.increase);
 let line_chart_data = {
-    labels: [""].concat(labels),
+    labels: [""].concat(labels).slice(-15),
     datasets: [{
-        data: [0].concat(data),
+        data: [0].concat(data).slice(-15),
         label: "Increase",
         fill: true,
         backgroundColor: 'transparent',
