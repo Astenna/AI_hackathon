@@ -58,7 +58,7 @@ try:
 except (IOError, json.decoder.JSONDecodeError):
     pred = []
 
-dates = [prediction.date for prediction in pred]
+dates = [prediction.get("date") for prediction in pred]
 if not prediction_json.get("date") in dates:
     pred.append(prediction_json)
 with open("predictions/prediction.json", "w") as json_file:
