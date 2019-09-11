@@ -129,13 +129,13 @@ workflows:
           requires:
             - stock_prediction
 
-#     triggers:
-#       - schedule:
-#           cron: "45 05 * * *"
-#           filters:
-#             branches:
-#               only:
-#                 - master
+    triggers:
+      - schedule:
+          cron: "30 04 * * *"
+          filters:
+            branches:
+              only:
+                - master
 
   # on_commit:
   #   jobs:
