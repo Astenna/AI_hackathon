@@ -166,5 +166,12 @@
             "increase": "0.5968",
             "decrease": "0.4032"
         }
+    },
+    {
+        "date": "2019-09-24",
+        "prediction": {
+            "increase": "0.82461",
+            "decrease": "0.17539"
+        }
     }
 ]
