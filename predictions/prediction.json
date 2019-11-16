@@ -432,5 +432,12 @@
             "increase": "0.88468",
             "decrease": "0.11532"
         }
+    },
+    {
+        "date": "2019-11-15",
+        "prediction": {
+            "increase": "0.941",
+            "decrease": "0.059"
+        }
     }
 ]
