@@ -705,5 +705,12 @@
             "increase": "0.68999",
             "decrease": "0.31001"
         }
+    },
+    {
+        "date": "2020-01-14",
+        "prediction": {
+            "increase": "0.61757",
+            "decrease": "0.38243"
+        }
     }
 ]
