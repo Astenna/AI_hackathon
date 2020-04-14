@@ -1132,5 +1132,12 @@
             "increase": "0.51837",
             "decrease": "0.48163"
         }
+    },
+    {
+        "date": "2020-04-13",
+        "prediction": {
+            "increase": "0.05226",
+            "decrease": "0.94774"
+        }
     }
 ]
