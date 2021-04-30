@@ -21,7 +21,7 @@ simplejson==3.16.0
 six==1.12.0
 tweepy==3.8.0
 typed-ast==1.4.0
-urllib3==1.25.3
+urllib3==1.25.8
 wrapt==1.11.2
 yahoo-finance==1.4.0
 yfinance==0.1.45
@@ -47,7 +47,7 @@ requests==2.22.0
 six==1.12.0
 textblob==0.15.3
 toml==0.10.0
-urllib3==1.25.3
+urllib3==1.25.8
 yfinance==0.1.45
 appdirs==1.4.3
 attrs==19.1.0
@@ -71,4 +71,4 @@ textblob==0.15.3
 toml==0.10.0
 tweepy==3.8.0
 twitter-sentiment==0.0.6.1
-urllib3==1.25.3
+urllib3==1.25.8
