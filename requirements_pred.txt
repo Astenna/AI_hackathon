@@ -1,6 +1,6 @@
 astroid==2.2.5
 autopep8==1.4.4
-certifi==2019.6.16
+certifi==2022.12.7
 chardet==3.0.4
 idna==2.8
 isort==4.3.21
@@ -28,7 +28,7 @@ yfinance==0.1.45
 appdirs==1.4.3
 attrs==19.1.0
 black==19.3b0
-certifi==2019.6.16
+certifi==2022.12.7
 chardet==3.0.4
 Click==7.0
 cssselect==1.1.0
@@ -52,7 +52,7 @@ yfinance==0.1.45
 appdirs==1.4.3
 attrs==19.1.0
 black==19.3b0
-certifi==2019.6.16
+certifi==2022.12.7
 chardet==3.0.4
 Click==7.0
 cssselect==1.1.0
